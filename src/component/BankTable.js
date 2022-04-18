@@ -3,6 +3,7 @@ import axios from "axios";
 import { useGlobalFilter, useTable, usePagination } from "react-table";
 import tw from "twin.macro";
 import BankFilter from "./BankFilter";
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
 
 
 const Table = tw.table`
@@ -50,7 +51,7 @@ const Button = tw.button`
 function BankTable() {
 
 
-    const [banks, setBanks] = useState([]);
+  const [banks, setBanks] = useState([]);
 
   const fetchBanks = async () => {
     const response = await axios
@@ -79,13 +80,32 @@ function BankTable() {
     [banks]
   );
 
+  // const [favorites, setFavorites] = useState(favoritesArray);
+
+  // const tableHooks = ( hooks ) => {
+  //   hooks.visibleColumns.push((columns) => [
+  //     ...columns,
+  //     {
+  //       id: "Fav",
+  //       Header: "Fav",
+  //       Cell: ({ row }) => (
+  //         { favorites.includes(i) ? (
+
+  //         )
+  //         }
+  //       )
+  //     }
+  //   ]);
+  // };
+
   const tableInstance = useTable(
     {
       columns: banksColumns,
       data: banksData,
     },
     useGlobalFilter,
-    usePagination
+    usePagination,
+    // tableHooks
   );
 
   const {
@@ -108,6 +128,7 @@ function BankTable() {
   useEffect(() => {
     fetchBanks();
   }, []);
+
 
   const isEven = (idx) => idx % 2 === 0;
 
@@ -181,3 +202,8 @@ function BankTable() {
 }
 
 export default BankTable
+
+
+
+// IoIosHeart
+// IoIosHeartEmpty
